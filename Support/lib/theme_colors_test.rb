@@ -14,7 +14,7 @@ def assert_equal(want, got)
 	raise "want #{want.inspect}, got #{got.inspect}" unless want == got
 end
 
-FIX = File.expand_path('Fixture.tmTheme', __dir__)
+FIX = File.expand_path('../fixtures/Fixture.tmTheme', __dir__)
 
 check('hex forms collapse to lowercase rrggbb / rrggbbaa') do
 	assert_equal('#aabbcc', ThemeColors.normalize('#abc'))
@@ -81,6 +81,13 @@ check('the page carries a swatch and the scope text') do
 	raise 'missing scope' unless page.include?('constant.numeric')
 	raise 'missing gray heading' unless page.include?('Near-grays, light to dark')
 	raise 'unescaped' if page.include?('<script') && page.include?('</html>') == false
+end
+
+check('the page carries the theme uuid') do
+	uuid = ThemeColors.read_theme(FIX)['uuid']
+	raise 'fixture has no uuid' if uuid.nil? || uuid.empty?
+	page = ThemeColors.page_for(FIX)
+	raise 'missing uuid' unless page.include?(uuid)
 end
 
 if $failures.zero?

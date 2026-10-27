@@ -161,6 +161,7 @@ module ThemeColors
 			:name => (doc['name'] || File.basename(path, '.tmTheme')).to_s,
 			:author => doc['author'] && doc['author'].to_s,
 			:semantic_class => doc['semanticClass'] && doc['semanticClass'].to_s,
+			:uuid => doc['uuid'] && doc['uuid'].to_s,
 			:path => path.to_s,
 			:uses => uses,
 			:grays => grays,
@@ -174,7 +175,7 @@ module ThemeColors
 		colors = section('Other colors, by hue', 'Same hex is one row, however many scopes share it.', inv[:colors], inv[:uses])
 		plain = colorless_section(inv[:colorless])
 		n = inv[:grays].length + inv[:colors].length
-		meta = [inv[:author], inv[:semantic_class]].compact.reject(&:empty?)
+		meta = [inv[:author], inv[:semantic_class], inv[:uuid]].compact.reject(&:empty?)
 		<<~HTML
 			<!DOCTYPE html>
 			<html>

@@ -10,15 +10,9 @@
 # Choose a color in the apple color selecting, defaulting to the current #rrggbb containing the carat/selection.
 
 # Thin launcher: the real implementation lives in Support/lib so it stays
-# editable, testable, and out of the plist XML. The first path keeps working
-# from an installed bundle; the scan covers direct checkouts anywhere.
-candidates = [
-  File.expand_path('~/Library/Application Support/TextMate/Bundles/Bundle Development.tmbundle/Support/lib/edit_color.rb'),
-  *Dir[File.expand_path('~/bin/tm/bundles/*/Support/lib/edit_color.rb')].sort,
-]
-lib = candidates.find { |p| File.file?(p) }
-abort 'edit_color.rb not found.' if lib.nil?
-load lib
+# editable, testable, and out of the plist XML. TM_BUNDLE_SUPPORT points
+# at this bundle's Support directory wherever the bundle is installed.
+load File.join(ENV['TM_BUNDLE_SUPPORT'], 'lib', 'edit_color.rb')
 EditColor.run
 </string>
 	<key>fallbackInput</key>

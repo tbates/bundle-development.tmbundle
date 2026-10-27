@@ -9,15 +9,9 @@
 # Shows graphically all of a theme's defined colors and their scopes in an html window.
 
 # Thin launcher: the real implementation lives in Support/lib so it stays
-# editable, testable, and out of the plist XML. The first path is the
-# installed location; the scan covers direct checkouts anywhere.
-candidates = [
-  File.expand_path('~/Library/Application Support/TextMate/Bundles/Bundle Development.tmbundle/Support/lib/theme_colors.rb'),
-  *Dir[File.expand_path('~/bin/tm/bundles/*/Support/lib/theme_colors.rb')].sort,
-]
-lib = candidates.find { |p| File.file?(p) }
-abort 'theme_colors.rb not found.' if lib.nil?
-load lib
+# editable, testable, and out of the plist XML. TM_BUNDLE_SUPPORT points
+# at this bundle's Support directory wherever the bundle is installed.
+load File.join(ENV['TM_BUNDLE_SUPPORT'], 'lib', 'theme_colors.rb')
 ThemeColors.show
 </string>
 	<key>input</key>

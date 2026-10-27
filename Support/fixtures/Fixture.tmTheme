@@ -2,6 +2,7 @@
 	author = Fixture;
 	name = Fixture;
 	semanticClass = "theme.dark.fixture";
+	uuid = "C6673BB3-C20E-4398-A5B1-99B3B9B461BC";
 	settings = (
 		{ settings = { background = "#111111"; foreground = "#e1e1e1"; }; },
 		{ name = Variable; scope = "variable"; settings = { foreground = "#e1e1e1"; }; },
